@@ -7,7 +7,9 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <title>Noob Framework</title>
+    <link rel="stylesheet" href="./highlight.js/ajax_libs_highlight.js_10.7.1_styles_a11y-dark.min.css">
     <link rel="stylesheet" href="styles.css" type="text/css" />
+    <script src="./highlight.js/ajax_libs_highlight.js_10.7.1_highlight.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -32,209 +34,266 @@
       <section>
         <h1 class="title" id="docs">Documentation</h1>
         <article>
-          <div class="content-article">
-            <h3>How to use Controllers?</h3>
-            <p>
-              It's simple. We will have to import the class located in Core/Controller.php
-              and extend it in the controller class as in the example on the side.
-              The class name, together with the method name, will be the name of the access
-              route to the controller. In the case of the example, it would be something like:
-              <span class="false-link">https://noobframework.com/user/signin</span
-              ><br /><br />
-              <span class="obs"
-                >Note: If the method name is 'index', just call the class name to access it</span
-              >. <br /><br />
-
-              In the class, we import we have the view() method. This method is responsible
-              for calling the informed view and passing the parameters that have been entered.
-              The view() method takes two parameters:
-              <br /><br />
-              <div class="card">
-                <span class="card-title">viewName -></span> 
-                <span class="red">Required</span> This parameter indicates the name of the View that should be shown on the screen. The target file extension must be .html, .phtml or .php.
-              </div>
-              <div class="card">
-                <span class="card-title">params -></span> <span class="green">Not required</span> This parameter receives the data that must be passed to be used in the View. The expected data type is a key-value array. Remembering that the name of the key in the array will be the same variable name in the View.
-              </div>
-            </p>
-          </div>
-          <div class="preview">
-            <div class="windows">
-              <button
-                id="session-code-window"
-                class="focus-1"
-                onclick="changeWindow('session-code', true)"
-              >
-                UserController.php
-              </button>
-              <button id="html-code-window" onclick="changeWindow('html-code', true)">
-                home.html
-              </button>
-              <button
-                id="preview-code-window"
-                onclick="changeWindow('preview-code', true)"
-              >
-                Preview
-              </button>
-            </div>
-            <div class="code">
-              <pre id="session-code"><span class="pink">&lt;?php</span>
-
-<span class="pink">namespace</span> <span class="blue">App\Controllers</span>;
-
-<span class="pink">use</span> <span class="blue">Core\Controller</span>;
-
-<span class="pink">class</span> <span class="blue">UserController</span> <span class="pink">extends</span> <span class="blue">Controller</span> {
-    
-  <span class="pink">public function</span> <span class="green">signin()</span> {
-    $params = [
-      <span class="yellow">'user'</span> <span class="pink">=></span> [
-        <span class="yellow">'name'</span> <span class="pink">=></span> <span class="yellow">'Stephan George'</span>,
-        <span class="yellow">'email'</span> <span class="pink">=></span> <span class="yellow">'stephan.george@domain.com'</span>,
-      ]
-    ];
-
-    <span class="purple">$this-></span><span class="green">view(</span><span class="yellow">'home'</span>, $params<span class="green">)</span>;
-  }
-}</pre>
-              <pre id="html-code" class="invisible">
-<span class="pink">&lt;body&gt;</span>
-  <span class="pink">&lt;span&gt;</span>&lt;?php echo $user["name"] ?&gt;<span class="pink">&lt;/span&gt;</span>
-  <span class="pink">&lt;span&gt;</span>&lt;?php echo $user["email"] ?&gt;<span class="pink">&lt;/span&gt;</span>
-<span class="pink">&lt;\body&gt;</span></pre>
-              <pre id="preview-code" class="invisible">
-Stephan George
-stephan.george@domain.com
-              </pre>
-            </div>
+          <div class="content-article installation">
+            <h3>Installation</h3>
+            <p>First of all, make sure you have installed PHP and Composer. Clone or download <a class='real-link' href="https://github.com/edigar/noobframework">project</a> and install dependencies (composer install).</p>
+            <pre class="shell">
+            <code>
+composer install
+            </code>
+            </pre>
           </div>
         </article>
         <article>
           <div class="content-article">
-            <h3>How to use Models and Database?</h3>
+            <h3>Routes</h3>
             <p>
-              First of all, we need to create a file with the name config.php in the config folder. The file should follow the example of the code below with the desired values.
-              <div class="code-incorpored">
-                <pre><span class="pink">&lt;?php</span>
-                
-<span class="pink">return</span> [
-  <span class="yellow">'db'</span> <span class="pink">=></span> [
-    <span class="yellow">'driver'</span> <span class="pink">=></span> <span class="yellow">'mysql'</span>,
-    <span class="yellow">'host'</span> <span class="pink">=></span> <span class="yellow">'localhost'</span>,
-    <span class="yellow">'dbname'</span> <span class="pink">=></span> <span class="yellow">'foo'</span>,
-    <span class="yellow">'user'</span> <span class="pink">=></span> <span class="yellow">'root'</span>,
-    <span class="yellow">'pass'</span>  <span class="pink">=></span> <span class="yellow">'root'</span>
-    <span class="comment">// Use '' if you don't use a password.</span>
-  ],
-];
-                </pre>
-              </div>
-              <span class="obs"
-                >Note: If you don't have a password, put empty quotes.</span
-              >
+              To create a route, in <em>route/router.php</em>, add your route within the rotas function, as shown in the example.
+              Use the <code>$router</code> object, calling the method that corresponds to the HTTP verb you want to use.
+              As parameters, you should pass the route and the controller along with the method you want to call.
+              This framework uses the <a class="real-link" href="https://github.com/nikic/FastRoute">nikic/fast-route</a> library.
+              Read its documentation for more information.
             </p>
+            <br /><br />
+            <div class="card">
+              <span class="card-title">route -></span>
+              <span class="red">Required</span> This parameter indicates the route that will be accessed by the user. The route must start with a slash (/).
+            </div>
+            <div class="card">
+              <span class="card-title">action -></span>
+              <span class="red">Required</span> This parameter indicates the controller and method that will be called when the route is accessed. The controller and method must be separated by two colon (:).
+            </div>
+          </div>
+          <div class="content-code">
+            <div class="windows">
+              <button id="route-code-window" class="focus">router.php</button>
+            </div>
+            <pre><code class="language-php">
+&lt;?php
+
+/*
+|------------------------------------------------------------------------------------------------------
+| Routes
+|------------------------------------------------------------------------------------------------------
+|
+| Here is where you can register routes for your application.
+| For more information see https://github.com/nikic/FastRoute
+|
+*/
+
+function routes(FastRoute\RouteCollector $router): void
+{
+    $router->get('/', 'App\Controllers\IndexController::index');
+    $router->get('/your-url', 'App\Controllers\YourController::yourMethod');
+}
+            </code></pre>
+          </div>
+        </article>
+        <article>
+          <div class="content-article">
+            <h3>Controllers</h3>
             <p>
-              Done! Configs ready! Now we can create our Model and start enjoying the database.
+              You must extend Core/Controller in your controller class as in the example on the side. The class and
+              method name (action) are the same you registered in <em>router.php</em>, and then, it will be called when
+              the route is accessed.
+
+              Your controller class will inherit the <code>view()</code> method, which is responsible for rendering a view.
+              You can specify the view in the first parameter and pass data through the second parameter. Here is the
+              description of the view method parameters:
+              <br /><br />
+              <div class="card">
+                <span class="card-title">viewName -></span><span class="red">Required</span>
+                This parameter indicates the name of the View that should be shown on the screen. The target file
+                extension must be .html, .phtml or .php.
+              </div>
+              <div class="card">
+                <span class="card-title">params -></span> <span class="green">Not required</span>
+                This parameter receives the data that must be passed to be used in the View. The expected data type is a
+                key-value array. Remembering that the name of the key in the array will be the same variable name in the View.
+              </div>
+            </p>
+          </div>
+          <div class="content-code controllers">
+            <div class="windows">
+              <button id="controller-code-window" class="focus" onclick="changeWindow('controllers', 'controller-code')">
+                UserController.php
+              </button>
+              <button id="html-code-window" onclick="changeWindow('controllers', 'html-code')">
+                home.html
+              </button>
+              <button id="preview-code-window" onclick="changeWindow('controllers', 'preview-code')">
+                Preview
+              </button>
+            </div>
+            <pre id="controller-code">
+              <code class="language-php">
+&lt;?php
+
+namespace App\Controllers;
+
+use Core\Controller;
+
+class UserController extends Controller {
+
+  public function signIn() {
+    $params = [
+      'user' => [
+        'name' => 'John Doe',
+        'email' => 'john.doe@domain.com',
+      ]
+    ];
+
+    $this->view('home', $params);
+  }
+}
+              </code>
+            </pre>
+            <pre id="html-code" class="invisible">
+              <code class="language-php">
+...
+&lt;body>
+  &lt;span>&lt;?php echo $user["name"] ?>&lt;/span>
+  &lt;span>&lt;?php echo $user["email"] ?>&lt;/span>
+&lt;\body>
+...
+              </code>
+            </pre>
+            <pre id="preview-code" class="invisible">
+              <code>
+Stephan George
+stephan.george@domain.com
+              </code>
+            </pre>
+          </div>
+        </article>
+        <article>
+          <div class="content-article">
+            <h3>Models and Database</h3>
+            <p>
+              You need to create a <em>.env</em> file at the root of your project. You can copy the
+              <em>.env.example</em> file and set the environment variables as shown in the example below.
+            </p>
+              <pre class="block">
+                <code>
+DRIVER=mysql
+HOST=localhost
+DBNAME=
+DBUSER=
+DBPASSWORD=
+                </code>
+              </pre>
+            <p>
+              Done! Configs ready! Now we can create our Model and connect to the database.
 
               <br /><br />
 
-              To create a model, we need to import and extend the Database class located in Core / Database.php. In this class, we have some methods to facilitate access to the database. Let's see these methods below:<br /><br />
-
-              <div class="card">
-                <span class="card-title">getInstance() -></span> Return a database instance.
-              </div>
-              <div class="card">
-                <span class="card-title">getList(table, columns, conditions) -></span> Searches information in the database according to the conditions informed.
-              </div>
-              <div class="card">
-                <span class="card-title">insert(table, data) -></span> Inserts the data informed in the table passed in the parameter.
-              </div>
-              <div class="card">
-                <span class="card-title">update(table, data, conditions) -></span> Update many or one value according to the conditions informed.
-              </div>
-              <div class="card">
-                <span class="card-title">delete(table, conditions) -></span> Delete many or one value according to the conditions informed
-              </div>
-            </p> 
+              To create a model, you must extend the Database class with <code>use Core\Database;</code>.
+              With this, your model will inherit some methods that will facilitate access to the database.
+              Let’s look at some methods below:<br /><br />
+            </p>
+            <div class="card">
+              <span class="card-title">getInstance() -></span> Return a database instance.
+            </div>
+            <div class="card">
+              <span class="card-title">getList(table, columns, conditions) -></span>
+              Searches information in the database according to the conditions informed.
+            </div>
+            <div class="card">
+              <span class="card-title">insert(table, data) -></span>
+              Inserts the data informed in the table passed in the parameter.
+            </div>
+            <div class="card">
+              <span class="card-title">update(table, data, conditions) -></span>
+              Update many or one value according to the conditions informed.
+            </div>
+            <div class="card">
+              <span class="card-title">delete(table, conditions) -></span>
+              Delete many or one value according to the conditions informed
+            </div>
           </div>
-          <div class="preview">
+          <div class="content-code models">
             <div class="windows">
-              <button
-                id="user-code-window"
-                class="focus-2"
-                onclick="changeWindow('user-code', false)"
-              >
+              <button id="user-code-window" class="focus" onclick="changeWindow('models', 'user-code')">
                 User.php
               </button>
-              <button id="session-model-code-window" onclick="changeWindow('session-model-code', false)">
-                SessionController.php
+              <button id="session-model-code-window" onclick="changeWindow('models', 'session-model-code')">
+                UserController.php
               </button>
             </div>
-            <div class="code">
+            <pre id="user-code">
+              <code class="language-php">
+&lt;?php
 
-              <pre id="user-code"><span class="pink">&lt;?php</span>
+namespace App\Models;
 
-<span class="pink">namespace</span> <span class="blue">App\Models;</span>
+use Core\Database;
 
-<span class="pink">use</span> <span class="blue">Core\Database;</span>
+class User {
+  private table = 'users';
 
-<span class="pink">class</span> <span class="blue">User</span> {
-  <span class="pink">private</span> <span class="purple">table</span> <span class="pink">=</span> <span class="yellow">'users'</span>;
+  public function find($columns = '*', $conditions = null) {
+    $db = Database::getInstance();
 
-  <span class="pink">public function</span> <span class="green">find(</span>$columns <span class="pink">=</span> <span class="yellow">'*'</span>, $conditions <span class="pink">=</span> <span class="purple">null</span><span class="green">)</span> {
-    $db = <span class="blue">Database</span><span class="green">::getInstance()</span>;
+    $data = $db->getList($this->table, $columns, $conditions);
 
-    $data <span class="pink">=</span> $db<span class="green"><span class="pink">-></span>getList(</span><span class="purple">$this</span><span class="pink">-></span><span class="purple">table</span>, $columns, $conditions<span class="green">)</span>;
-
-    <span class="pink">return</span> $data;
+    return $data;
   }
-}</pre>
-<pre id="session-model-code" class="invisible"><span class="pink">&lt;?php</span>
+}
+              </code>
+            </pre>
+            <pre id="session-model-code" class="invisible">
+              <code class="language-php">
+&lt;?php
 
-<span class="pink">namespace</span> <span class="blue">App\Controllers</span>;
+namespace App\Controllers;
 
-<span class="pink">use</span> <span class="blue">Core\Controller</span>;
-<span class="pink">use</span> <span class="blue">App\Models\User</span>;
+use Core\Controller;
+use App\Models\User;
 
-<span class="pink">class</span> <span class="blue">SessionController</span> <span class="pink">extends</span> <span class="blue">Controller</span> {
-  <span class="pink">public function</span> <span class="green">index()</span> {
-    $email <span class="pink">=</span> <span class="yellow">'stephan.george@domain.com'</span>;
-    $user <span class="pink">=</span> <span class="pink">new</span> <span class="blue">User()</span>;
-    $targetUser <span class="pink">=</span> $user<span class="pink">-></span><span class="green">find(<span class="purple">null</span>, <span class="yellow">'email = '</span> <span class="pink">.</span></span> $email<span class="green">)</span>;
+class UserController extends Controller {
+  public function getUser() {
+    $email = 'john.doe@domain.com';
+    $user = new User();
+    $targetUser = $user->find(null, 'email = ' . $email);
 
-    <span class="purple">$this-></span><span class="green">view(</span><span class="yellow">'home'</span>, [<span class="yellow">'user'</span> <span class="pink">=></span> $targetUser]<span class="green">)</span>;
+    $this->view('home', ['user' => $targetUser]);
   }
-}</pre>
-              <pre id="html-code" class="invisible">
-<span class="pink">&lt;body&gt;</span>
-  <span class="pink">&lt;span&gt;</span>&lt;?php echo $user["name"] ?&gt;<span class="pink">&lt;/span&gt;</span>
-<span class="pink">&lt;\body&gt;</span></pre>
-              <pre id="preview-code" class="invisible">
-Stephan George
-              </pre>
-            </div>
+}
+              </code>
+            </pre>
           </div>
         </article>
       </section>
       <footer>
-        <span>Website developed by Maxwell Olliver</span>
-        <h3 class="logo-dancing">Noob Framework</h3>
+        <div class="footer-half">
+          <span>Contributors:</span>
+          <ul>
+            <li><a href="https://github.com/edigar">Edigar Herculano</a></li>
+            <li><a href="https://github.com/MaxwellOlliver">Maxwell Olliver</a></li>
+          </ul>
+        </div>
+        <div class="footer-half">
+          <h3 class="logo-dancing">Noob Framework</h3>
+        </div>
       </footer>
     </div>
 
     <script>
-      function changeWindow(context, first) {
-        let target = first ? 'focus-1' : 'focus-2';
-        let focused = document.querySelector('.' + target);
+      hljs.highlightAll();
+      function changeWindow(context, button) {
+        let windowsButtons = document.querySelectorAll('.' + context + ' div button');
+        windowsButtons.forEach(button => {
+          button.classList.remove('focus');
+        });
+        let clickedButton = document.querySelector(`#${button}` + '-window');
+        clickedButton.classList.add('focus');
 
-        console.log(focused.id)
-        focused.classList.remove(target);
-        document
-          .querySelector(`#${focused.id.replace('-window', '')}`)
-          .classList.add('invisible');
-
-        document.querySelector(`#${context}`).classList.remove('invisible');
-        document.querySelector(`#${context}-window`).classList.add(target);
+        let codePreElements = document.querySelectorAll('.' + context + ' pre');
+        codePreElements.forEach(pre => {
+          pre.classList.add('invisible');
+        });
+        let clickedPre = document.querySelector(`#${button}`);
+        clickedPre.classList.remove('invisible');
       }
     </script>
   </body>
