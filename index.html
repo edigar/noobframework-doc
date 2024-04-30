@@ -57,11 +57,14 @@ composer install
             <br /><br />
             <div class="card">
               <span class="card-title">route -></span>
-              <span class="red">Required</span> This parameter indicates the route that will be accessed by the user. The route must start with a slash (/).
+              <span class="red">Required</span>
+              This parameter indicates the route that will be accessed by the user. The route must start with a slash (/).
             </div>
             <div class="card">
-              <span class="card-title">action -></span>
-              <span class="red">Required</span> This parameter indicates the controller and method that will be called when the route is accessed. The controller and method must be separated by two colon (:).
+              <span class="card-title">action -> </span>
+              <span class="red">Required </span>
+              This parameter indicates the controller and method that will be called when the route is accessed.
+              The controller and method must be separated by two colon (:).
             </div>
           </div>
           <div class="content-code">
@@ -97,9 +100,9 @@ function routes(FastRoute\RouteCollector $router): void
               method name (action) are the same you registered in <em>router.php</em>, and then, it will be called when
               the route is accessed.
 
-              Your controller class will inherit the <code>view()</code> method, which is responsible for rendering a view.
-              You can specify the view in the first parameter and pass data through the second parameter. Here is the
-              description of the view method parameters:
+              Your controller class will inherit the <code>view()</code> method, which is responsible for rendering a
+              view. You can specify the view in the first parameter and pass data through the second parameter. Here is
+              the description of the view method parameters:
               <br /><br />
               <div class="card">
                 <span class="card-title">viewName -></span><span class="red">Required</span>
@@ -109,7 +112,8 @@ function routes(FastRoute\RouteCollector $router): void
               <div class="card">
                 <span class="card-title">params -></span> <span class="green">Not required</span>
                 This parameter receives the data that must be passed to be used in the View. The expected data type is a
-                key-value array. Remembering that the name of the key in the array will be the same variable name in the View.
+                key-value array. Remembering that the name of the key in the array will be the same variable name in the
+                View.
               </div>
             </p>
           </div>
@@ -135,16 +139,16 @@ use Core\Controller;
 
 class UserController extends Controller {
 
-  public function signIn() {
-    $params = [
-      'user' => [
-        'name' => 'John Doe',
-        'email' => 'john.doe@domain.com',
-      ]
-    ];
+    public function signIn() {
+        $params = [
+            'user' => [
+                'name' => 'John Doe',
+                'email' => 'john.doe@domain.com',
+            ]
+        ];
 
-    $this->view('home', $params);
-  }
+        $this->view('home', $params);
+    }
 }
               </code>
             </pre>
@@ -162,6 +166,87 @@ class UserController extends Controller {
               <code>
 John Doe
 john.doe@domain.com
+              </code>
+            </pre>
+          </div>
+        </article>
+        <article>
+          <div class="content-article">
+            <h3>Request</h3>
+            <p>
+              The Request class is a utility class that provides methods to access various information related to an
+              HTTP request. It is designed to be injected into a controller to handle request-related tasks. That means
+              all controllers have access to the Request class by parameters, therefore, just set the parameter in your
+              controller method and use it, like the example below.
+              <br /><br />
+              <span class="obs">
+                Note: Remember to adjust the usage according to your specific application needs. The Request class
+                provides a convenient way to access request-related information within your controllers.
+              </span>
+            </p>
+            <p>
+              The Request class has the following methods:
+              <br /><br />
+              <div class="card">
+                <span class="card-title">getParams(): array -> </span>Returns the entire array of request parameters.
+              </div>
+              <div class="card">
+                <span class="card-title">method(): string -> </span>Returns the request method (e.g. GET, POST, PUT, PATCH).
+              </div>
+              <div class="card">
+                <span class="card-title">isMethod(string $type): bool -> </span>
+                Checks if the request method is equal to the parameter passed.
+              </div>
+              <div class="card">
+                <span class="card-title">ip(): string -> </span>Retrieves the client’s IP address.
+              </div>
+              <div class="card">
+                <span class="card-title">path(): string -> </span>Gets the request URI.
+              </div>
+              <div class="card">
+                <span class="card-title">ssl(): bool -> </span>Determines if the request is using SSL.
+              </div>
+              <div class="card">
+                <span class="card-title">fullPath(): string -> </span>Retrieves the full URL of the request.
+              </div>
+              <div class="card">
+                <span class="card-title">var(string $inputName = null): mixed -> </span>Gets parameters from the URI.
+              </div>
+              <div class="card">
+                <span class="card-title">query(string $inputName = null): mixed -> </span>Gets parameters from the querystring.
+              </div>
+              <div class="card">
+                <span class="card-title">body(string $inputName = null, mixed $default = null): mixed -> </span>
+                Gets parameters from the request body (for POST, PUT, and PATCH requests). <code>$default</code>
+                parameter defines a default value if the parameter is not found.
+              </div>
+            </p>
+          </div>
+          <div class="content-code request">
+            <div class="windows">
+              <button id="request-code-window" class="focus">MyController.php</button>
+            </div>
+            <pre>
+              <code class="language-php">
+&lt;?php
+
+namespace App\Controllers;
+
+use Core\Controller;
+use Core\Request;
+
+class MyController
+{
+    public function handleRequest(Request $request)
+    {
+        // Example usage:
+        $method = $request->method();
+        $uri = $request->path();
+        $queryParams = $request->query();
+        $postParam = $request->body('postParam1', 'default');
+        // ... other logic
+    }
+}
               </code>
             </pre>
           </div>
@@ -195,19 +280,19 @@ DBPASSWORD=
               <span class="card-title">getInstance() -></span> Return a database instance.
             </div>
             <div class="card">
-              <span class="card-title">getList(table, columns, conditions) -></span>
+              <span class="card-title">getList($table, $columns, $conditions) -></span>
               Searches information in the database according to the conditions informed.
             </div>
             <div class="card">
-              <span class="card-title">insert(table, data) -></span>
+              <span class="card-title">insert($table, $data) -></span>
               Inserts the data informed in the table passed in the parameter.
             </div>
             <div class="card">
-              <span class="card-title">update(table, data, conditions) -></span>
+              <span class="card-title">update($table, $data, $conditions) -></span>
               Update many or one value according to the conditions informed.
             </div>
             <div class="card">
-              <span class="card-title">delete(table, conditions) -></span>
+              <span class="card-title">delete($table, $conditions) -></span>
               Delete many or one value according to the conditions informed
             </div>
           </div>
@@ -229,15 +314,15 @@ namespace App\Models;
 use Core\Database;
 
 class User {
-  private table = 'users';
+    private table = 'users';
 
-  public function find($columns = '*', $conditions = null) {
-    $db = Database::getInstance();
+    public function find($columns = '*', $conditions = null) {
+        $db = Database::getInstance();
 
-    $data = $db->getList($this->table, $columns, $conditions);
+        $data = $db->getList($this->table, $columns, $conditions);
 
-    return $data;
-  }
+        return $data;
+    }
 }
               </code>
             </pre>
@@ -251,13 +336,13 @@ use Core\Controller;
 use App\Models\User;
 
 class UserController extends Controller {
-  public function getUser() {
-    $email = 'john.doe@domain.com';
-    $user = new User();
-    $targetUser = $user->find(null, 'email = ' . $email);
+    public function getUser() {
+        $email = 'john.doe@domain.com';
+        $user = new User();
+        $targetUser = $user->find(null, 'email = ' . $email);
 
-    $this->view('home', ['user' => $targetUser]);
-  }
+        $this->view('home', ['user' => $targetUser]);
+    }
 }
               </code>
             </pre>
