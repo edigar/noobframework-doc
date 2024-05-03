@@ -175,9 +175,9 @@ john.doe@domain.com
             <h3>Request</h3>
             <p>
               The Request class is a utility class that provides methods to access various information related to an
-              HTTP request. It is designed to be injected into a controller to handle request-related tasks. That means
-              all controllers have access to the Request class by parameters, therefore, just set the parameter in your
-              controller method and use it, like the example below.
+              HTTP request. It is designed to be injected into a controller action (method) to handle request-related tasks.
+              That means all controllers have access to the Request class by parameters, therefore, just set the
+              parameter in your controller method and use it, like the example below.
               <br /><br />
               <span class="obs">
                 Note: Remember to adjust the usage according to your specific application needs. The Request class
@@ -245,6 +245,121 @@ class MyController
         $queryParams = $request->query();
         $postParam = $request->body('postParam1', 'default');
         // ... other logic
+    }
+}
+              </code>
+            </pre>
+          </div>
+        </article>
+        <article>
+          <div class="content-article">
+            <h3>Session</h3>
+            <p>
+              The Session class is a tool for managing PHP sessions. It encapsulates the session handling process in an
+              object-oriented manner, providing a clean, intuitive and secure interface for session management. It
+              follows the Singleton design pattern, meaning only one instance of this class can exist at a time. It
+              provides methods to set and get session variables, set the session expiration time, and destroy the session.
+            </p>
+            <p>
+              You can set a session variable setting this variable in the session instance like an attribute. The same is
+              for recovering a session variable. For example, you can set a user session variable with
+              <code>$session->user = $user</code>. See example below.
+            </p>
+            <p>
+              The Session class has the following methods:
+              <br /><br />
+              <div class="card">
+                <span class="card-title">getInstance(int $expire_time = null): Session -> </span>
+                Returns the session instance. If an instance doesn’t exist, it creates one. The <code>$expire_time</code>
+                parameter is optional and sets the session expiration time in seconds.
+              </div>
+              <div class="card">
+                <span class="card-title">setExpiretime(int $__value = null): void -> </span>Sets the session expiration
+                time in seconds.
+              </div>
+              <div class="card">
+                <span class="card-title">getExpiretime(): int -> </span>Retrieves the session expiration time in seconds.
+              </div>
+              <div class="card">
+                <span class="card-title">set(string $__name, $__value): void </span>Sets a session variable.
+              </div>
+              <div class="card">
+                <span class="card-title">get(string $__name = null): mixed -> </span>Retrieves a session variable.
+              </div>
+              <div class="card">
+                <span class="card-title">delete(string $name): void -> </span>Deletes a session variable.
+              </div>
+              <div class="card">
+                <span class="card-title">destroy(): void -> </span>Destroys the session, removing all session variables.
+              </div>
+            </p>
+          </div>
+          <div class="content-code session">
+            <div class="windows">
+              <button id="auth-code-window" class="focus" onclick="changeWindow('session', 'auth-code')">
+                AuthenticateController.php
+              </button>
+              <button id="session-code-window" onclick="changeWindow('session', 'session-code')">
+                AnotherPageController.php
+              </button>
+            </div>
+            <pre id="auth-code">
+              <code class="language-php">
+&lt;?php
+
+namespace App\Controllers;
+
+use Core\Controller;
+use Core\Session;
+
+class AuthenticateController extends Controller
+{
+    public function login()
+    {
+        // Get the Session instance
+        $session = Session::getInstance();
+
+        // Set a session variable
+        $session->set('user', 'John Doe');
+        $session->email = 'john.doe@example.com';
+
+        // ... continue with the logic
+    }
+
+    public function logout()
+    {
+        // Get the Session instance
+        $session = Session::getInstance();
+
+        // Destroy session
+        $session->destroy();
+
+        // continue...
+    }
+}
+              </code>
+            </pre>
+            <pre id="session-code" class="invisible">
+              <code class="language-php">
+&lt;?php
+
+namespace App\Controllers;
+
+use Core\Controller;
+use Core\Session;
+
+class AnotherPageController extends Controller
+{
+    public function show()
+    {
+        // Get the Session instance
+        $session = Session::getInstance();
+
+        // Get session variables
+        $username = $session->username;
+        $email = $session->get('email');
+
+        // ... continue with the logic
     }
 }
               </code>
