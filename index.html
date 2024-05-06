@@ -370,7 +370,7 @@ class AnotherPageController extends Controller
           <div class="content-article">
             <h3>Models and Database</h3>
             <p>
-              You need to create a <em>.env</em> file at the root of your project. You can copy the
+              You must create a <em>.env</em> file at the root of your project. You can copy the
               <em>.env.example</em> file and set the environment variables as shown in the example below.
             </p>
               <pre class="block">
@@ -386,29 +386,49 @@ DBPASSWORD=
               Done! Configs ready! Now we can create our Model and connect to the database.
 
               <br /><br />
-
-              To create a model, you must extend the Database class with <code>use Core\Database;</code>.
-              With this, your model will inherit some methods that will facilitate access to the database.
+              In your model class, you can use Database class with <code>use Core\Database;</code>.
+              It provides an interface for interacting with the database. This class follows the Singleton design pattern
+              to ensure that only one instance of the database connection is created throughout the application, thereby
+              saving resources.
+            </p>
+            <p>
+              This class is useful in Models as it provides a structured and reusable way to interact with the database.
+              It abstracts the complexity of database operations, making it easier to perform CRUD (Create, Read, Update, Delete)
+              operations.
+            </p>
+            <p>
+              Please note that the actual usage of this class may vary depending on the specific requirements of your
+              application. Always ensure that you follow best practices for security and efficiency when interacting with
+              a database.
+            </p>
+            <p>
               Let’s look at some methods below:<br /><br />
             </p>
             <div class="card">
-              <span class="card-title">getInstance() -></span> Return a database instance.
+              <span class="card-title">getInstance() -> </span>
+              A static method that returns the single instance of the DataBase class. If the instance does not exist,
+              it creates one and establishes a connection to the database.
             </div>
             <div class="card">
-              <span class="card-title">getList($table, $columns, $conditions) -></span>
-              Searches information in the database according to the conditions informed.
+              <span class="card-title">
+                getList(string $table, string $fields, array $condition = null, string $filter = null, string $order = null, string $limit = null): ?array ->
+              </span>
+              Retrieves data from the database based on the provided parameters and returns the result as an associative array.
             </div>
             <div class="card">
-              <span class="card-title">insert($table, $data) -></span>
-              Inserts the data informed in the table passed in the parameter.
+              <span class="card-title">insert(string $table, array $data): bool -> </span>
+              Inserts the provided data into the specified table in the database. It returns true if the operation is
+              successful, false otherwise.
             </div>
             <div class="card">
-              <span class="card-title">update($table, $data, $conditions) -></span>
-              Update many or one value according to the conditions informed.
+              <span class="card-title">update(string $table, array $data, array $condition): bool -> </span>
+              Updates the specified table in the database with the provided data based on the given condition.
+              It returns true if the operation is successful, false otherwise.
             </div>
             <div class="card">
-              <span class="card-title">delete($table, $conditions) -></span>
-              Delete many or one value according to the conditions informed
+              <span class="card-title">delete(string $table, array $condition): bool -> </span>
+              Deletes data from the specified table in the database based on the given condition. It returns true if the
+              operation is successful, false otherwise.
             </div>
           </div>
           <div class="content-code models">
