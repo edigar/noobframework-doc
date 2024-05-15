@@ -336,11 +336,26 @@ footer {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  text-align: center;
 }
 
 footer ul {
   list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+footer ul li {
+  margin-bottom: 10px;
+}
+
+footer a {
+  color: #ccc; /* Altera a cor dos links para um cinza claro */
+  text-decoration: none; /* Remove o sublinhado dos links */
+}
+
+footer a:hover {
+  color: #fff; /* Altera a cor dos links para branco quando o mouse passa sobre eles */
 }
 
 footer span {
