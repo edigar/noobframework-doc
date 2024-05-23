@@ -281,7 +281,7 @@ class MyController
                 <span class="card-title">getExpiretime(): int -> </span>Retrieves the session expiration time in seconds.
               </div>
               <div class="card">
-                <span class="card-title">set(string $__name, $__value): void </span>Sets a session variable.
+                <span class="card-title">set(string $__name, $__value): void -> </span>Sets a session variable.
               </div>
               <div class="card">
                 <span class="card-title">get(string $__name = null): mixed -> </span>Retrieves a session variable.
@@ -360,6 +360,256 @@ class AnotherPageController extends Controller
         $email = $session->get('email');
 
         // ... continue with the logic
+    }
+}
+              </code>
+            </pre>
+          </div>
+        </article>
+        <article>
+          <div class="content-article">
+            <h3>Cookie</h3>
+            <p>
+              The Cookie class provides a secure and easy way to create, read, update and delete cookies. It abstracts
+              the complexity of cookie handling and provides a clean and intuitive interface for managing cookies in PHP.
+              See example below.
+            </p>
+            <p>
+              The Cookie class offers several methods for manipulating cookies. Let's take a look at each of them:
+              <br /><br />
+              <div class="card">
+                <span class="card-title">getName(): string -> </span> Returns the name of the cookie.
+              </div>
+              <div class="card">
+                <span class="card-title">getValue(): mixed|null -> </span> Returns the value of the cookie.
+              </div>
+              <div class="card">
+                <span class="card-title">setValue(mixed $value): self -> </span> Sets the value of the cookie.
+              </div>
+              <div class="card">
+                <span class="card-title">getExpiryTime(): int -> </span> Returns the expiration time of the cookie as a
+                Unix timestamp.
+              </div>
+              <div class="card">
+                <span class="card-title">setExpiryTime(int $expiryTime): self -> </span> Sets the expiration time of the
+                cookie as a Unix timestamp.
+              </div>
+              <div class="card">
+                <span class="card-title">getPath(): string -> </span> Returns the server path on which the cookie is valid.
+                If the path has not been set, an empty string will be returned.
+              </div>
+              <div class="card">
+                <span class="card-title">setPath(string $path): self -> </span> Sets the server path on which the cookie
+                will be valid. This method returns the Cookie class instance itself to allow method chaining.
+              </div>
+              <div class="card">
+                <span class="card-title">getDomain(): string|null -> </span> Returns the domain for which the cookie is valid.
+                If the domain has not been set, null will be returned.
+              </div>
+              <div class="card">
+                <span class="card-title">setDomain(string $domain): self -> </span> Sets the domain for which the cookie
+                will be valid. This method returns the Cookie class instance itself to allow method chaining.
+              </div>
+              <div class="card">
+                <span class="card-title">getMaxAge(): int -> </span> Returns the maximum age of the cookie
+                (i.e. the remaining lifetime).
+              </div>
+              <div class="card">
+                <span class="card-title">setMaxAge(int $maxAge): self -> </span> Sets the expiry time for the cookie
+                based on the specified maximum age.
+              </div>
+              <div class="card">
+                <span class="card-title">isHttpOnly(): bool -> </span> Returns whether the cookie should be accessible
+                through HTTP only.
+              </div>
+              <div class="card">
+                <span class="card-title">setHttpOnly(bool $httpOnly): self -> </span> Sets whether the cookie should be
+                accessible through HTTP only.
+              </div>
+              <div class="card">
+                <span class="card-title">isSecureOnly(): bool -> </span> Returns whether the cookie should be sent over
+                HTTPS only.
+              </div>
+              <div class="card">
+                <span class="card-title">setSecureOnly(bool $secureOnly): self -> </span> Sets whether the cookie should
+                be sent over HTTPS only.
+              </div>
+              <div class="card">
+                <span class="card-title">getSameSiteRestriction(): ?string -> </span> Returns the same-site restriction
+                of the cookie.
+              </div>
+              <div class="card">
+                <span class="card-title">setSameSiteRestriction(?string $sameSiteRestriction): self -> </span>
+                Sets the same-site restriction for the cookie.
+              </div>
+              <div class="card">
+                <span class="card-title">save(): bool -> </span> Saves the cookie.
+              </div>
+              <div class="card">
+                <span class="card-title">saveAndSet(): bool -> </span> Saves the cookie and immediately creates the
+                corresponding variable in the superglobal `$_COOKIE` array.
+              </div>
+              <div class="card">
+                <span class="card-title">delete(): bool -> </span> Deletes the cookie.
+              </div>
+              <div class="card">
+                <span class="card-title">deleteAndUnset(): bool -> </span> Deletes the cookie and immediately removes
+                the corresponding variable from the superglobal `$_COOKIE` array.
+              </div>
+              <div class="card">
+                <span class="card-title">__toString(): string -> </span> Returns the cookie as a string formatted for
+                the HTTP header.
+              </div>
+              <div class="card">
+                <span class="card-title">
+                  (static) setcookie(string $name, mixed|null $value = null, int $expiryTime = 0, ?string $path = null, ?string $domain = null, bool $secureOnly = false, bool $httpOnly = false, ?string $sameSiteRestriction = null): bool ->
+                </span>
+                Sets a new cookie in a way compatible to PHP's `setcookie(...)` function.
+              </div>
+              <div class="card">
+                <span class="card-title">
+                  (static) buildCookieHeader(string $name, mixed|null $value = null, int $expiryTime = 0, ?string $path = null, ?string $domain = null, bool $secureOnly = false, bool $httpOnly = false, ?string $sameSiteRestriction = null): ?string ->
+                </span>
+                Builds the HTTP header that can be used to set a cookie with the specified options.
+              </div>
+              <div class="card">
+                <span class="card-title">(static) parse(string $cookieHeader): ?Cookie -> </span>
+                Parses the given cookie header and returns an equivalent cookie instance.
+              </div>
+              <div class="card">
+                <span class="card-title">(static) exists(string $name): bool -> </span>
+                Checks whether a cookie with the specified name exists.
+              </div>
+              <div class="card">
+                <span class="card-title">(static) get(string $name, mixed|null $defaultValue = null): mixed -> </span>
+                Returns the value from the requested cookie or, if not found, the specified default value.
+              </div>
+              <div class="card">
+                <span class="card-title">(static) isNameValid(string $name): bool -> </span>
+                Checks whether the cookie name is valid.
+              </div>
+              <div class="card">
+                <span class="card-title">(static) isExpiryTimeValid($expiryTime): bool -> </span>
+                Checks whether the expiry time is valid.
+              </div>
+              <div class="card">
+                <span class="card-title">(static) calculateMaxAge($expiryTime): int -> </span>
+                Calculates the maximum age based on the expiry time.
+              </div>
+              <div class="card">
+                <span class="card-title">(static) formatExpiryTime($expiryTime, $forceShow = false): ?string -> </span>
+                Formats the expiry time.
+              </div>
+              <div class="card">
+                <span class="card-title">(static) formatMaxAge($expiryTime, $forceShow = false): ?string -> </span>
+                Formats the max age.
+              </div>
+              <div class="card">
+                <span class="card-title">(static) normalizeDomain($domain = null): ?string -> </span>
+                Normalizes the domain.
+              </div>
+              <div class="card">
+                <span class="card-title">(static) addHttpHeader($header): bool -> </span> Adds the HTTP header.
+              </div>
+            </p>
+          </div>
+          <div class="content-code cookie">
+            <div class="windows">
+              <button id="set-cookie-code-window" class="focus" onclick="changeWindow('cookie', 'set-cookie-code')">
+                LanguageController.php
+              </button>
+              <button id="get-cookie-code-window" onclick="changeWindow('cookie', 'get-cookie-code')">
+                ContentController.php
+              </button>
+            </div>
+            <pre id="set-cookie-code">
+              <code class="language-php">
+&lt;?php
+
+namespace App\Controllers;
+
+use Core\Controller;
+use Core\Cookie;
+use Core\Request;
+
+class LanguageController extends Controller
+{
+    public function setLanguage(Request $request)
+    {
+        $language = $request->post('language');
+
+        // Create a cookie to store the language preference
+        $cookie = new Cookie('language');
+        $cookie->setValue($language)
+               ->setExpiryTime(time() + 60 * 60 * 24) // Expires in 24 hours
+               ->setPath('/')
+               ->setHttpOnly(true); // Accessible only through HTTP protocol
+        $cookie->save();
+
+        // Redirect to the user's profile page
+        $this->redirect('/content');
+    }
+
+    public function clearLanguagePreference()
+    {
+        // Create a cookie object for the language preference
+        $languageCookie = new Cookie('language');
+
+        // Delete the cookie and unset the variable
+        $languageCookie->deleteAndUnset();
+
+        $this->redirect('/content');
+    }
+}
+              </code>
+            </pre>
+            <pre id="get-cookie-code" class="invisible">
+              <code class="language-php">
+&lt;?php
+
+namespace App\Controllers;
+
+use Core\Controller;
+use Core\Cookie;
+
+class ContentController extends Controller
+{
+    public function show()
+    {
+        // Retrieve the language preference from the cookie
+        if (Cookie::exists('language')) {
+            $language = Cookie::get('language');
+        } else {
+            // Set a default language if the cookie doesn't exist
+            $language = 'en';
+        }
+
+        // Load the content in the chosen language
+        switch ($language) {
+            case 'en':
+                $content = $this->loadEnContent();
+                break;
+            case 'pt_br':
+                $content = $this->loadPtBrContent();
+                break;
+            default:
+              $content = $this->loadEnContent(); // Fallback to English
+        }
+
+        // Display the content page
+        $this->view('content', ['content' => $content]);
+    }
+
+    private function loadEnContent()
+    {
+        // Load English content from a file, database, or other source
+        return 'This is English content.';
+    }
+
+    private function loadPtBrContent()
+    {
+        // Load Brazilian Portuguese content from a file, database, or other source
+        return 'Este é o conteúdo em português.';
     }
 }
               </code>
